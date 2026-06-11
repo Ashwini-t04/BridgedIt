@@ -1,0 +1,10 @@
+<h1>Applicants for {{ job.title }}</h1>
+
+{% for app in applications %}
+    <div style="border:1px solid #ddd; padding:10px; margin:10px;">
+        <p><b>User ID:</b> {{ app.user_id }}</p>
+        <p><b>Status:</b> {{ app.status }}</p>
+    </div>
+{% endfor %}
+
+<a href="/opportunities">Back</a>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BridgedIt</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+
+    <!-- Logo -->
+    <div class="logo">
+        BridgedIt
+    </div>
+
+    <!-- NAV LINKS -->
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}"
+           class="nav-btn {% if request.endpoint == 'home' %}active{% endif %}">
+            Home
+        </a>
+
+        <a href="{{ url_for('dashboard') }}"
+           class="nav-btn {% if request.endpoint == 'dashboard' %}active{% endif %}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('discover') }}"
+           class="nav-btn {% if request.endpoint == 'discover' %}active{% endif %}">
+            Discover
+        </a>
+
+        <a href="{{ url_for('opportunities') }}"
+           class="nav-btn {% if request.endpoint == 'opportunities' %}active{% endif %}">
+            Opportunities
+        </a>
+
+        <a href="{{ url_for('recruiter') }}"
+           class="nav-btn {% if request.endpoint == 'recruiter' %}active{% endif %}">
+            Recruiter
+        </a>
+
+        <a href="{{ url_for('mochi') }}"
+           class="nav-btn highlight {% if request.endpoint == 'mochi' %}active{% endif %}">
+            Mochi ✨
+        </a>
+
+    </div>
+
+    <!-- AUTH SECTION -->
+    <div class="auth-section">
+
+        {% if session.get('user_id') %}
+
+            <span class="role-badge">
+                {{ session.get('role') }}
+            </span>
+
+            <a href="{{ url_for('logout') }}" class="auth-btn logout">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('login') }}"
+               class="auth-btn {% if request.endpoint == 'login' %}active{% endif %}">
+                Login
+            </a>
+
+            <a href="{{ url_for('signup') }}"
+               class="auth-btn signup {% if request.endpoint == 'signup' %}active{% endif %}">
+                Signup
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+<!-- PAGE CONTENT -->
+<div class="page-container">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- SCRIPT -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

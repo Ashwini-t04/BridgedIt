@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Recruiter Hub</h1>
+        <p>Post opportunities and find matched talent instantly.</p>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="recruiter-grid">
+
+        <!-- Post Opportunity -->
+        <div class="card">
+
+            <h2>Post a New Opportunity</h2>
+
+           <form method="POST">
+
+    <input type="text" name="title" placeholder="Job Title" required>
+
+    <input type="text" name="company" placeholder="Company Name" required>
+
+    <textarea name="description" placeholder="Job Description" required></textarea>
+
+    <input type="text" name="skills" placeholder="Skills (comma separated)">
+
+    <button type="submit">Post Opportunity</button>
+
+</form>
+
+        </div>
+
+        <!-- Find Candidates -->
+        <div class="card">
+
+            <h2>Find Candidates</h2>
+
+            <div class="search-bar">
+                <input type="text" placeholder="Search by skill or name...">
+                <button>Search</button>
+            </div>
+
+            <div class="candidate-list">
+
+                <div class="candidate-card">
+                    <h3>Riya Mehta</h3>
+                    <p>React Developer • 94% Match</p>
+                </div>
+
+                <div class="candidate-card">
+                    <h3>Aman Gupta</h3>
+                    <p>AI Engineer • 89% Match</p>
+                </div>
+
+                <div class="candidate-card">
+                    <h3>Priya Nair</h3>
+                    <p>UI Designer • 86% Match</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

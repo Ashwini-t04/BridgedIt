@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Mochi AI</h1>
+        <p>Your intelligent assistant for matching talent and opportunities.</p>
+    </div>
+
+    <!-- Chat Box -->
+    <div class="chat-container">
+
+        <!-- Messages -->
+        <div class="chat-box" id="chatBox">
+
+            <div class="message ai">
+                Hey 👋 I’m Mochi. Tell me what you’re looking for.
+            </div>
+
+        </div>
+
+        <!-- Input -->
+        <div class="chat-input">
+            <input type="text" id="input" placeholder="Ask Mochi anything..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+async function sendMessage() {
+
+    let input = document.getElementById("input");
+    let message = input.value;
+
+    if (!message) return;
+
+    let chatBox = document.getElementById("chatBox");
+
+    chatBox.innerHTML += `<div class="message user">${message}</div>`;
+
+    input.value = "";
+
+    let res = await fetch("/mochi-chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "message=" + encodeURIComponent(message)
+    });
+
+    let data = await res.json();
+
+    console.log("DEBUG RESPONSE:", data);
+
+    chatBox.innerHTML += `<div class="message ai">${data.reply}</div>`;
+}
+</script>
+{% endblock %}

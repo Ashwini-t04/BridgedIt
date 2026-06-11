@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <h1>Opportunities</h1>
+        <p>AI-matched roles and collaborations tailored for you.</p>
+    </div>
+
+    <!-- 🔥 TOP RECOMMENDATIONS -->
+    {% if top_jobs %}
+
+    <div class="page-header">
+        <h2>🔥 Recommended for You</h2>
+        <p>Top AI-matched opportunities based on your skills</p>
+    </div>
+
+    <div class="opportunity-grid">
+
+        {% for item in top_jobs %}
+
+        <div class="card opportunity-card" style="border: 2px solid #2563eb;">
+
+            <!-- Header -->
+            <div class="op-header">
+                <h3>{{ item.job.title }}</h3>
+
+                <span class="match">
+                    {{ item.score }}% Match
+                </span>
+            </div>
+
+            <!-- Company -->
+            <p><b>{{ item.job.company }}</b></p>
+
+            <!-- Description -->
+            <p>{{ item.job.description }}</p>
+
+            <!-- Skills -->
+            <div class="tags">
+                {% for skill in (item.job.skills or "").split(',') %}
+                    {% if skill.strip() %}
+                        <span>{{ skill.strip() }}</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- AI Reason -->
+            <p style="font-style: italic; color: #555;">
+                {{ item.reason }}
+            </p>
+
+            <!-- Apply -->
+            <form method="POST" action="/apply/{{ item.job.id }}">
+                <button class="apply-btn" type="submit">
+                    Apply Now
+                </button>
+            </form>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <hr style="margin: 30px 0;">
+
+    {% endif %}
+
+    <!-- 📊 ALL OPPORTUNITIES -->
+    <div class="opportunity-grid">
+
+        {% for item in jobs %}
+
+        <div class="card opportunity-card">
+
+            <!-- Header -->
+            <div class="op-header">
+                <h3>{{ item.job.title }}</h3>
+
+                <span class="match">
+                    {{ item.score }}% Match
+                </span>
+            </div>
+
+            <!-- Company -->
+            <p><b>{{ item.job.company }}</b></p>
+
+            <!-- Description -->
+            <p>{{ item.job.description }}</p>
+
+            <!-- Skills -->
+            <div class="tags">
+                {% for skill in (item.job.skills or "").split(',') %}
+                    {% if skill.strip() %}
+                        <span>{{ skill.strip() }}</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- AI Reason -->
+            <p style="font-style: italic; color: #555;">
+                {{ item.reason }}
+            </p>
+
+            <!-- Apply Button -->
+            <form method="POST" action="/apply/{{ item.job.id }}">
+                <button class="apply-btn" type="submit">
+                    Apply Now
+                </button>
+            </form>
+
+            <!-- Delete Button -->
+            <form method="POST"
+                  action="{{ url_for('delete_job', job_id=item.job.id) }}"
+                  onsubmit="return confirm('Delete this job?');">
+
+                <button type="submit"
+                        class="apply-btn"
+                        style="background:#ef4444; margin-top:8px;">
+                    Delete
+                </button>
+
+            </form>
+
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY STATE -->
+        <div class="card opportunity-card">
+            <h3>No opportunities yet</h3>
+            <p>Post a job from recruiter dashboard to see it here.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

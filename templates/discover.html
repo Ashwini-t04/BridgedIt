@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+        <h1>Discover Talent</h1>
+        <p>Find people based on skills, interests, and opportunities.</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search skills, roles, or names...">
+        <button>Search</button>
+    </div>
+
+    <!-- Filter Chips -->
+    <div class="filter-chips">
+        <button class="chip active">All</button>
+        <button class="chip">Design</button>
+        <button class="chip">Development</button>
+        <button class="chip">Marketing</button>
+        <button class="chip">AI / ML</button>
+    </div>
+
+    <!-- Talent Grid -->
+    <div class="card-grid">
+
+        <div class="card profile-card">
+            <h3>Aryan Sharma</h3>
+            <p>Frontend Developer</p>
+            <span>React • UI/UX</span>
+        </div>
+
+        <div class="card profile-card">
+            <h3>Neha Verma</h3>
+            <p>AI Engineer</p>
+            <span>Python • ML Models</span>
+        </div>
+
+        <div class="card profile-card">
+            <h3>Rohan Patel</h3>
+            <p>UI Designer</p>
+            <span>Figma • Branding</span>
+        </div>
+
+        <div class="card profile-card">
+            <h3>Simran Kaur</h3>
+            <p>Full Stack Dev</p>
+            <span>Node • Flask • React</span>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
