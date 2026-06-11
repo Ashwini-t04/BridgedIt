@@ -42,20 +42,29 @@ def register_routes(app):
             email = request.form.get("email")
             password = request.form.get("password")
 
+            print("EMAIL:", email)
+
             user = User.query.filter_by(email=email).first()
 
+            print("USER:", user)
+
+            if user:
+                print("HASH:", user.password_hash)
+                print("PASSWORD MATCH:", user.check_password(password))
+
             if user and user.check_password(password):
+                print("LOGIN SUCCESS")
+
                 session["user_id"] = user.id
                 session["username"] = user.username
                 session["role"] = user.role
 
                 return redirect("/dashboard")
 
+            print("LOGIN FAILED")
             return redirect("/login")
 
         return render_template("login.html")
-
-
     # ---------------- LOGOUT ----------------
     @app.route("/logout")
     def logout():
@@ -69,12 +78,12 @@ def register_routes(app):
         if "user_id" not in session:
             return redirect("/login")
 
-        role = session.get("role")
+        user = User.query.get(session["user_id"])
 
-        if role == "recruiter":
-            return render_template("dashboard_recruiter.html")
+        if user.role == "recruiter":
+            return render_template("dashboard_recruiter.html", user=user)
 
-        return render_template("dashboard_candidate.html")
+        return render_template("dashboard_candidate.html", user=user)
     # ---------------- OPPORTUNITIES ----------------
     @app.route("/opportunities")
     def opportunities():
